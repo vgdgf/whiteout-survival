@@ -1,261 +1,307 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" id="exeRoot">
+<html lang="ar" dir="rtl" id="root">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EXE | Whiteout Survival Grand Encyclopedia</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --frost-blue: #00d2ff; --deep-ice: #05162a; --dark-void: #020810;
-            --gold: #ffcf33; --silver: #bdc3c7; --red-alert: #ff4b2b;
-            --glass: rgba(255, 255, 255, 0.05);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXE | Whiteout Survival Encyclopedia</title>
 
-        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-        body {
-            margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--dark-void); color: #e6f1ff; display: flex;
-            height: 100vh; overflow: hidden;
-        }
+<style>
+:root{
+ --bg:#020810;
+ --panel:#05162a;
+ --glass:rgba(255,255,255,.06);
+ --main:#00d2ff;
+ --gold:#ffcf33;
+}
 
-        /* Sidebar Navigation */
-        .sidebar {
-            width: 320px; background: rgba(5, 22, 42, 0.95); border-left: 2px solid var(--frost-blue);
-            display: flex; flex-direction: column; z-index: 1000; box-shadow: 10px 0 30px rgba(0,0,0,0.5);
-        }
+*{box-sizing:border-box}
 
-        .logo-box { padding: 40px 20px; text-align: center; background: linear-gradient(to bottom, #0a2440, transparent); }
-        .logo-box h1 { font-size: 50px; margin: 0; color: var(--frost-blue); text-shadow: 0 0 20px var(--frost-blue); letter-spacing: 5px; }
+body{
+ margin:0;
+ font-family:system-ui,-apple-system,Segoe UI;
+ background:var(--bg);
+ color:#e6f1ff;
+ display:flex;
+ height:100vh;
+ overflow:hidden;
+}
 
-        .menu { flex: 1; overflow-y: auto; padding: 20px; }
-        .menu-item {
-            padding: 15px 20px; margin-bottom: 10px; border-radius: 12px; cursor: pointer;
-            display: flex; align-items: center; gap: 15px; background: var(--glass);
-            border: 1px solid transparent; font-size: 16px;
-        }
-        .menu-item:hover, .menu-item.active {
-            background: rgba(0, 210, 255, 0.15); border-color: var(--frost-blue); color: var(--frost-blue);
-            transform: translateX(-5px);
-        }
+/* ===== Sidebar ===== */
+.sidebar{
+ width:300px;
+ background:rgba(5,22,42,.95);
+ border-left:2px solid var(--main);
+ display:flex;
+ flex-direction:column;
+}
 
-        /* Main Content Area */
-        .viewport { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
-        header {
-            padding: 20px 50px; background: rgba(2, 8, 16, 0.9);
-            display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px solid var(--glass);
-        }
+.logo{
+ padding:30px;
+ text-align:center;
+}
+.logo h1{
+ margin:0;
+ font-size:42px;
+ color:var(--main);
+ letter-spacing:6px;
+}
+.logo p{opacity:.8}
 
-        .content-scroll { flex: 1; overflow-y: auto; padding: 50px; scroll-behavior: smooth; }
+.menu{
+ flex:1;
+ padding:15px;
+ overflow-y:auto;
+}
+.menu div{
+ padding:14px 18px;
+ border-radius:12px;
+ margin-bottom:10px;
+ cursor:pointer;
+ display:flex;
+ align-items:center;
+ gap:12px;
+ background:var(--glass);
+}
+.menu div.active,
+.menu div:hover{
+ background:rgba(0,210,255,.15);
+ color:var(--main);
+}
 
-        /* Advanced UI Elements */
-        .section-card {
-            background: var(--glass); border-radius: 20px; padding: 35px; margin-bottom: 40px;
-            border: 1px solid rgba(255,255,255,0.1); position: relative; line-height: 1.8;
-        }
-        .section-card h2 { color: var(--frost-blue); border-bottom: 2px solid var(--frost-blue); padding-bottom: 10px; }
-        
-        .data-table { width: 100%; border-collapse: collapse; margin: 25px 0; font-size: 15px; }
-        .data-table th { background: var(--frost-blue); color: #000; padding: 15px; }
-        .data-table td { padding: 15px; border-bottom: 1px solid var(--glass); text-align: center; }
+/* ===== Main ===== */
+.main{
+ flex:1;
+ display:flex;
+ flex-direction:column;
+}
 
-        .formula {
-            background: #000; padding: 20px; border-radius: 10px; color: var(--gold);
-            font-family: 'Courier New', monospace; border-right: 5px solid var(--frost-blue); margin: 20px 0;
-        }
+header{
+ padding:18px 30px;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ background:rgba(2,8,16,.9);
+ border-bottom:1px solid var(--glass);
+}
 
-        .lang-toggle {
-            background: linear-gradient(45deg, var(--frost-blue), var(--secondary));
-            border: none; padding: 12px 30px; border-radius: 30px; cursor: pointer;
-            font-weight: bold; color: #000; font-size: 14px;
-        }
+header button{
+ padding:10px 25px;
+ border-radius:25px;
+ border:none;
+ background:linear-gradient(45deg,var(--main),#6ff);
+ font-weight:bold;
+ cursor:pointer;
+}
 
-        /* LTR Logic */
-        .ltr { direction: ltr !important; }
-        .ltr .sidebar { border-left: none; border-right: 2px solid var(--frost-blue); }
-        .ltr .menu-item:hover, .ltr .menu-item.active { transform: translateX(5px); }
+.content{
+ flex:1;
+ padding:40px;
+ overflow-y:auto;
+ animation:fade .4s ease;
+}
 
-        /* Mobile Responsive */
-        @media (max-width: 900px) {
-            body { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; border: none; border-bottom: 2px solid var(--frost-blue); }
-            .content-scroll { padding: 20px; }
-        }
-    </style>
+/* ===== Cards ===== */
+.card{
+ background:var(--glass);
+ padding:28px;
+ border-radius:20px;
+ margin-bottom:30px;
+ border:1px solid rgba(255,255,255,.08);
+}
+.card h2,h3{color:var(--main)}
+
+/* ===== Tables ===== */
+.table-wrap{overflow-x:auto}
+table{
+ width:100%;
+ border-collapse:collapse;
+ min-width:500px;
+}
+th{
+ background:var(--main);
+ color:#000;
+ padding:14px;
+}
+td{
+ padding:14px;
+ text-align:center;
+ border-bottom:1px solid var(--glass);
+}
+
+/* ===== Formula ===== */
+.formula{
+ background:#000;
+ padding:16px;
+ border-radius:12px;
+ color:var(--gold);
+ font-family:monospace;
+ border-right:4px solid var(--main);
+ margin:15px 0;
+}
+
+/* ===== Bottom Nav (Mobile) ===== */
+.bottom{
+ display:none;
+}
+
+/* ===== Anim ===== */
+@keyframes fade{
+ from{opacity:0;transform:translateY(10px)}
+ to{opacity:1}
+}
+
+/* ===== LTR ===== */
+.ltr{direction:ltr}
+.ltr .sidebar{border-left:none;border-right:2px solid var(--main)}
+
+/* ===== Mobile ===== */
+@media(max-width:900px){
+ body{flex-direction:column}
+ .sidebar{display:none}
+ .content{padding:20px}
+ .bottom{
+  display:flex;
+  position:fixed;
+  bottom:0;
+  width:100%;
+  height:65px;
+  background:rgba(5,22,42,.97);
+  border-top:1px solid var(--main);
+  justify-content:space-around;
+  align-items:center;
+ }
+ .bottom i{
+  font-size:22px;
+  color:#ccefff;
+ }
+ .bottom i.active{color:var(--main)}
+}
+</style>
 </head>
-<body id="mainBody">
 
-    <div class="sidebar">
-        <div class="logo-box">
-            <h1>EXE</h1>
-            <p data-ar="موسوعة النجاة الكاملة" data-en="The Ultimate Survival Wiki">موسوعة النجاة الكاملة</p>
-        </div>
-        <div class="menu">
-            <div class="menu-item active" onclick="navigate('home')"><i class="fas fa-home"></i> <span data-ar="الرئيسية" data-en="Home">الرئيسية</span></div>
-            <div class="menu-item" onclick="navigate('heroes')"><i class="fas fa-id-card"></i> <span data-ar="الأبطال (التفصيل الممل)" data-en="Heroes (Full Detail)">الأبطال (التفصيل الممل)</span></div>
-            <div class="menu-item" onclick="navigate('combat')"><i class="fas fa-swords"></i> <span data-ar="ميكانيكا القتال والمعادلات" data-en="Combat & Formulas">ميكانيكا القتال والمعادلات</span></div>
-            <div class="menu-item" onclick="navigate('buildings')"><i class="fas fa-city"></i> <span data-ar="تطوير المباني والموارد" data-en="Buildings & Resources">تطوير المباني والموارد</span></div>
-            <div class="menu-item" onclick="navigate('events')"><i class="fas fa-trophy"></i> <span data-ar="إستراتيجيات الفعاليات" data-en="Event Strategies">إستراتيجيات الفعاليات</span></div>
-        </div>
-    </div>
+<body id="body">
 
-    <div class="viewport">
-        <header>
-            <h3 id="navTitle">EXE Encyclopedia</h3>
-            <button class="lang-toggle" onclick="toggleLang()" id="langBtn">English</button>
-        </header>
+<!-- ===== Sidebar ===== -->
+<div class="sidebar">
+ <div class="logo">
+  <h1>EXE</h1>
+  <p data-ar="موسوعة Whiteout Survival" data-en="Whiteout Survival Encyclopedia"></p>
+ </div>
+ <div class="menu">
+  <div class="active" onclick="go('home')"><i class="fa fa-home"></i><span data-ar="الرئيسية" data-en="Home"></span></div>
+  <div onclick="go('heroes')"><i class="fa fa-id-card"></i><span data-ar="الأبطال" data-en="Heroes"></span></div>
+  <div onclick="go('combat')"><i class="fa fa-swords"></i><span data-ar="القتال" data-en="Combat"></span></div>
+  <div onclick="go('build')"><i class="fa fa-city"></i><span data-ar="المباني" data-en="Buildings"></span></div>
+  <div onclick="go('events')"><i class="fa fa-trophy"></i><span data-ar="الفعاليات" data-en="Events"></span></div>
+ </div>
+</div>
 
-        <div class="content-scroll" id="contentArea">
-            </div>
-    </div>
+<!-- ===== Main ===== -->
+<div class="main">
+<header>
+ <h3>EXE Encyclopedia</h3>
+ <button onclick="lang()">English</button>
+</header>
+
+<div class="content" id="content"></div>
+</div>
+
+<!-- ===== Bottom Nav ===== -->
+<div class="bottom">
+ <i class="fa fa-home active" onclick="go('home',this)"></i>
+ <i class="fa fa-id-card" onclick="go('heroes',this)"></i>
+ <i class="fa fa-swords" onclick="go('combat',this)"></i>
+ <i class="fa fa-city" onclick="go('build',this)"></i>
+ <i class="fa fa-trophy" onclick="go('events',this)"></i>
+</div>
 
 <script>
-    // --- قاعدة بيانات EXE المتكاملة (EXE MASTER DATABASE) ---
-    const EXE_DB = {
-        home: {
-            ar: `<h1>مرحباً بك في EXE</h1><div class="section-card"><p>هذا الموقع هو المرجع الأكثر دقة وتفصيلاً للعبة Whiteout Survival. تم تجميع البيانات من سجلات اللعبة وخبرات كبار اللاعبين (Whales).</p><h3>كيف تبدأ؟</h3><ul><li>استخدم القائمة الجانبية للتنقل.</li><li>جميع الأرقام هنا تعكس الحسابات الفعلية (Server-Side Logic).</li></ul></div>`,
-            en: `<h1>Welcome to EXE</h1><div class="section-card"><p>This is the most precise and detailed reference for Whiteout Survival. Data is compiled from game logs and pro-player insights.</p><h3>How to start?</h3><ul><li>Use the sidebar for navigation.</li><li>All numbers here reflect actual Server-Side Logic.</li></ul></div>`
-        },
-        heroes: {
-            ar: `<h2>تحليل الأبطال العميق (Hero Analytics)</h2>
-                <div class="section-card">
-                    <h3>البطلة: مولي (Molly) - الجيل الأول (الرماة)</h3>
-                    <p><b>الوظيفة:</b> السيطرة الجماعية (Crowd Control) وإلحاق ضرر واسع.</p>
-                    <div class="formula">مهارة رمي الثلج: الضرر = 400% من الهجوم الأساسي + فرصة تجميد 20%</div>
-                    <table class="data-table">
-                        <tr><th>المستوى</th><th>تكلفة الكتب</th><th>نسبة الضرر</th></tr>
-                        <tr><td>Level 1</td><td>-</td><td>250%</td></tr>
-                        <tr><td>Level 4</td><td>120 كتاب أرجواني</td><td>400%</td></tr>
-                    </table>
-                    <p><b>نصيحة EXE:</b> لا تستثمر في "أسلحة مولي" بعد ظهور أبطال الجيل الرابع لأن الفتك لديهم يتجاوز دفاعها بسهولة.</p>
-                </div>`,
-            en: `<h2>Deep Hero Analytics</h2>
-                <div class="section-card">
-                    <h3>Hero: Molly - Gen 1 (Marksman)</h3>
-                    <p><b>Role:</b> Crowd Control (CC) and AOE Damage.</p>
-                    <div class="formula">Snowball Skill: Damage = 400% of Base Attack + 20% Stun Chance</div>
-                    <table class="data-table">
-                        <tr><th>Level</th><th>Book Cost</th><th>Damage %</th></tr>
-                        <tr><td>Level 1</td><td>-</td><td>250%</td></tr>
-                        <tr><td>Level 4</td><td>120 Epic Books</td><td>400%</td></tr>
-                    </table>
-                    <p><b>EXE Pro Tip:</b> Don't over-invest in Molly's Gear once Gen 4 heroes appear, as their Lethality bypasses her defense.</p>
-                </div>`
-        },
-        combat: {
-            ar: `<h2>ميكانيكا القتال (التفصيل الممل)</h2>
-                <div class="section-card">
-                    <h3>1. معادلة الضرر الأساسية</h3>
-                    <p>الضرر لا يعتمد فقط على عدد جنودك، بل على النسبة بين هجومك ودفاع الخصم.</p>
-                    <div class="formula">Damage Ratio = (My_Attack / Enemy_Defense) * (My_Lethality / Enemy_Health)</div>
-                    <h3>2. ترتيب القوات</h3>
-                    <p><b>المشاة (Infantry):</b> يمتصون أول 100% من الضرر المباشر حتى يموت آخر جندي في الصف الأول.</p>
-                    <p><b>الخيالة (Lancers):</b> يمتلكون ميزة "الالتفاف" حيث يهاجمون رماة العدو بنسبة ضرر إضافية 15%.</p>
-                </div>`,
-            en: `<h2>Combat Mechanics (Detailed)</h2>
-                <div class="section-card">
-                    <h3>1. The Master Damage Formula</h3>
-                    <p>Damage isn't just about troop count; it's the ratio between your stats and the enemy's.</p>
-                    <div class="formula">Damage Ratio = (My_Attack / Enemy_Defense) * (My_Lethality / Enemy_Health)</div>
-                    <h3>2. Troop Priority</h3>
-                    <p><b>Infantry:</b> Absorb 100% of direct damage until the last front-line soldier falls.</p>
-                    <p><b>Lancers:</b> Feature "Flanking" mechanics, hitting enemy marksmen with +15% bonus damage.</p>
-                </div>`
-        },
-        buildings: {
-            ar: `<h2>تطوير الفرن وكريستال النار</h2>
-                <div class="section-card">
-                    <h3>متطلبات مستوى Fire Crystal 5 (FC5)</h3>
-                    <table class="data-table">
-                        <tr><th>المبنى</th><th>الكريستال المطلوب</th><th>وقت البناء التقريبي</th></tr>
-                        <tr><td>الفرن FC5</td><td>8000 كريستال</td><td>120 يوم</td></tr>
-                        <tr><td>المعسكرات FC5</td><td>4500 كريستال</td><td>60 يوم</td></tr>
-                    </table>
-                    <p><b>نصيحة الموارد:</b> دائماً احتفظ بإنتاج الفحم أعلى بـ 20% من الاستهلاك لتجنب كارثة "العاصفة العظمى" في المستويات المتقدمة.</p>
-                </div>`,
-            en: `<h2>Furnace & Fire Crystals</h2>
-                <div class="section-card">
-                    <h3>Fire Crystal Level 5 (FC5) Requirements</h3>
-                    <table class="data-table">
-                        <tr><th>Building</th><th>Crystals Needed</th><th>Approx. Time</th></tr>
-                        <tr><td>Furnace FC5</td><td>8000 Crystals</td><td>120 Days</td></tr>
-                        <tr><td>Camps FC5</td><td>4500 Crystals</td><td>60 Days</td></tr>
-                    </table>
-                    <p><b>Resource Tip:</b> Always keep coal production 20% higher than consumption to avoid "The Great Blizzard" disaster in endgame.</p>
-                </div>`
-        },
-        events: {
-            ar: `<h2>إستراتيجيات الفعاليات الكبرى</h2>
-                <div class="section-card">
-                    <h3>صيد الدب (Bear Hunt) - تحقيق المليار ضرر</h3>
-                    <p><b>أفضل تشكيل أبطال:</b></p>
-                    <ul>
-                        <li><b>البطل 1:</b> Jessie (لزيادة هجوم التجمع بنسبة 25%).</li>
-                        <li><b>البطل 2:</b> Jero (لتقليل دفاع الدب).</li>
-                        <li><b>البطل 3:</b> Seo-yoon (لزيادة سرعة الهجوم).</li>
-                    </ul>
-                    <p><b>السر التقني:</b> قم بتفعيل بوف الهجوم (Attack Buff) قبل انطلاق أول مسيرة بـ 10 ثوانٍ لضمان استمراره طوال فترة الفعالية.</p>
-                </div>`,
-            en: `<h2>Major Event Strategies</h2>
-                <div class="section-card">
-                    <h3>Bear Hunt - Reaching 1 Billion Damage</h3>
-                    <p><b>Best Hero Lineup:</b></p>
-                    <ul>
-                        <li><b>Hero 1:</b> Jessie (Increases Rally Attack by 25%).</li>
-                        <li><b>Hero 2:</b> Jero (Debuffs Bear Defense).</li>
-                        <li><b>Hero 3:</b> Seo-yoon (Increases Attack Speed).</li>
-                    </ul>
-                    <p><b>Technical Secret:</b> Activate your 20% Attack Buff 10 seconds before the first march lands to ensure it lasts the entire session.</p>
-                </div>`
-        }
-    };
+let L="ar";
 
-    let currentLang = 'ar';
+const DB={
+home:{
+ ar:`<div class="card">
+ <h2>مرحبًا بك في EXE</h2>
+ <p>موسوعة احترافية تعتمد على بيانات المجتمع، Wiki الرسمية، وتحليلات لاعبين متقدمين.</p>
+ </div>`,
+ en:`<div class="card">
+ <h2>Welcome to EXE</h2>
+ <p>A professional encyclopedia based on community data, official Wiki and veteran player analytics.</p>
+ </div>`
+},
+heroes:{
+ ar:`<div class="card">
+ <h2>الأبطال</h2>
+ <p><b>Molly:</b> سيطرة جماعية + ضرر واسع.</p>
+ <div class="formula">Damage = ATK × 400%</div>
+ </div>`,
+ en:`<div class="card">
+ <h2>Heroes</h2>
+ <p><b>Molly:</b> Crowd control + AOE damage.</p>
+ <div class="formula">Damage = ATK × 400%</div>
+ </div>`
+},
+combat:{
+ ar:`<div class="card">
+ <h2>ميكانيكا القتال</h2>
+ <div class="formula">(Attack ÷ Defense) × Lethality</div>
+ </div>`,
+ en:`<div class="card">
+ <h2>Combat Mechanics</h2>
+ <div class="formula">(Attack ÷ Defense) × Lethality</div>
+ </div>`
+},
+build:{
+ ar:`<div class="card">
+ <h2>المباني</h2>
+ <div class="table-wrap">
+ <table>
+ <tr><th>المبنى</th><th>الكريستال</th></tr>
+ <tr><td>الفرن FC5</td><td>8000</td></tr>
+ </table>
+ </div>
+ </div>`,
+ en:`<div class="card">
+ <h2>Buildings</h2>
+ <div class="table-wrap">
+ <table>
+ <tr><th>Building</th><th>Crystals</th></tr>
+ <tr><td>Furnace FC5</td><td>8000</td></tr>
+ </table>
+ </div>
+ </div>`
+},
+events:{
+ ar:`<div class="card">
+ <h2>صيد الدب</h2>
+ <p>أفضل أبطال: Jessie – Jero – Seo-Yoon</p>
+ </div>`,
+ en:`<div class="card">
+ <h2>Bear Hunt</h2>
+ <p>Best heroes: Jessie – Jero – Seo-Yoon</p>
+ </div>`
+}
+};
 
-    function toggleLang() {
-        const body = document.getElementById('mainBody');
-        const btn = document.getElementById('langBtn');
-        const root = document.getElementById('exeRoot');
+function go(p,el){
+ document.querySelectorAll(".menu div").forEach(d=>d.classList.remove("active"));
+ document.querySelectorAll(".bottom i").forEach(i=>i.classList.remove("active"));
+ if(el) el.classList.add("active");
+ document.getElementById("content").innerHTML=DB[p][L];
+}
 
-        currentLang = (currentLang === 'ar') ? 'en' : 'ar';
-        
-        // Update Attributes
-        root.dir = (currentLang === 'ar') ? 'rtl' : 'ltr';
-        body.className = (currentLang === 'en') ? 'ltr' : '';
-        btn.innerText = (currentLang === 'ar') ? 'English' : 'العربية';
+function lang(){
+ L=L==="ar"?"en":"ar";
+ document.getElementById("root").dir=L==="ar"?"rtl":"ltr";
+ document.getElementById("body").className=L==="en"?"ltr":"";
+ document.querySelector("header button").innerText=L==="ar"?"English":"العربية";
+ document.querySelectorAll("[data-ar]").forEach(e=>e.innerText=e.dataset[L]);
+ go("home");
+}
 
-        // Update Nav Menu Text
-        document.querySelectorAll('[data-ar]').forEach(el => {
-            el.innerText = el.getAttribute(`data-${currentLang}`);
-        });
-
-        // Refresh Content
-        const activeItem = document.querySelector('.menu-item.active');
-        const pageKey = activeItem.getAttribute('onclick').match(/'(.*)'/)[1];
-        navigate(pageKey);
-    }
-
-    function navigate(pageKey) {
-        // Update Menu UI
-        document.querySelectorAll('.menu-item').forEach(item => {
-            item.classList.remove('active');
-            if(item.getAttribute('onclick').includes(pageKey)) item.classList.add('active');
-        });
-
-        // Inject Content
-        const contentArea = document.getElementById('contentArea');
-        contentArea.innerHTML = EXE_DB[pageKey][currentLang];
-        
-        // Scroll to top
-        contentArea.parentElement.scrollTop = 0;
-    }
-
-    // Initialize Home Page
-    navigate('home');
+go("home");
 </script>
-
 </body>
 </html>
-
